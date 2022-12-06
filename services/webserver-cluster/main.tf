@@ -168,19 +168,14 @@ resource "aws_security_group_rule" "server_port" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-terraform {
-  backend "s3" {
-    bucket = "terraform-state-338"
-
-    # folder in the s3 bucket where the statefile will be stored
-    key = "stage/services/webserver-cluster/terraform.tfstate"
-    region = "us-east-1"
-
-    dynamodb_table = "terraform-state-locks"
-    encrypt = true
 
 
-  }
+locals {
+  http_port = 80
+  any_port = 0
+  any_protocol = "-1"
+  tcp_protocol = "tcp"
+  all_ips = ["0.0.0.0/0"]
 }
 
 # imports data about the mysql db
